@@ -1,0 +1,17 @@
+# basis set
+basis 6-31g*
+# coordinates file
+coordinates kink.pdb
+# molecule charge
+charge 0
+# SCF method (rhf/blyp/b3lyp/etc...): DFT-BLYP
+method b3lyp
+# add dispersion correction (DFT-D)
+dftd d3
+# type of the job (energy/gradient/md/minimize/ts): energy
+run minimize
+new_minimizer yes
+# PCM
+pcm cosmo
+epsilon 78.39
+end
