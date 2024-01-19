@@ -10,8 +10,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 import sys
-sys.path.append('/Users/oliverkanders/Desktop/Stapled β‑Hairpins Featuring 4‑Mercaptoproline/aimnet')
-sys.path.append('/Users/oliverkanders/Desktop/Stapled β‑Hairpins Featuring 4‑Mercaptoproline/dftd4')
 
 
 from rdkit import Chem
@@ -25,16 +23,50 @@ from ase.neighborlist import NeighborList, natural_cutoffs, get_connectivity_mat
 
 #import torch
 from aimnet import load_AIMNetSMD, load_AIMNetSMD_ens, AIMNetCalculator
-from dftd4.calculators import D4_model
+
+
+from ase.calculators.mixing import SumCalculator
+from dftd4.ase import DFTD4
+
+
+#OLD
+# from dftd4.calculators import D4_model
 
 if torch.cuda.is_available():
     model = load_AIMNetSMD_ens().cuda()
 else:
     model = load_AIMNetSMD_ens()
 
-calculator = D4_model(xc='wB97x', calc=AIMNetCalculator(model))
+
+#NEW
+# Assuming 'model' is your AIMNet model already defined
+# and AIMNetCalculator is an ASE-compatible calculator
+aimnet_calculator = AIMNetCalculator(model)
+
+# Create the DFTD4 calculator with the specified method
+dftd4_calculator = DFTD4(method='wB97x')
+
+# Combine the DFTD4 and AIMNet calculators
+calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
+
+
+
+#OLD
+#calculator = D4_model(xc='wB97x', calc=AIMNetCalculator(model))
 
 run_size = 25
+
+
+
+
+#suggested
+# from ase.build import molecule
+# from ase.calculators.mixing import SumCalculator
+# from ase.calculators.nwchem import NWChem
+# from dftd4.ase import DFTD4
+# atoms = molecule('H2O')
+# calculator = SumCalculator([DFTD4(method="wB97x"), NWChem(xc="wB97x")])
+
 
 smiles_dict = {
     'COS' : 'CC(=O)N[C@H](C(=O)NC)CSCc1c(cccc1)CS[C@H](C1)C[C@@H](C(=O)NC)N1C(=O)C',
