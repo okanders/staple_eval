@@ -21,7 +21,7 @@ from ase.optimize import BFGS
 from ase.constraints import FixBondLengths
 from ase.neighborlist import NeighborList, natural_cutoffs, get_connectivity_matrix
 
-#import torch
+import torch
 from aimnet import load_AIMNetSMD, load_AIMNetSMD_ens, AIMNetCalculator
 
 
