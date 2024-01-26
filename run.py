@@ -197,9 +197,18 @@ for name, smiles in name_smiles:
 
     AllChem.EmbedMultipleConfs(mol, numConfs=run_size, clearConfs=False, useSmallRingTorsions=True, numThreads=4)
 
-    for conformer in mol.GetConformers():
+    # Collect all conformers in a list
+    conformer_list = list(mol.GetConformers())
+
+    # Iterate over the list of conformers
+    for conformer in conformer_list:
         new_conformer_id = mol.AddConformer(conformer, assignId=True)
         perturb(mol, new_conformer_id)
+
+
+    # for conformer in mol.GetConformers():
+    #     new_conformer_id = mol.AddConformer(conformer, assignId=True)
+    #     perturb(mol, new_conformer_id)
 
     optimize(mol)
     align(mol, template_mol, atomMap)
