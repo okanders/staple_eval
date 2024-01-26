@@ -1,0 +1,4 @@
+
+[submodule "aimnet"]
+	path = aimnet
+	url = https://github.com/okanders/aimnet.git
