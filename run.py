@@ -134,11 +134,18 @@ def optimize(mol):
             calculator=calculator,
         )
 
+        coord = atoms.positions
+        number_idx = torch.tensor([atom.number for atom in atoms], dtype=torch.long)
+
         # Debugging: Print the types and shapes of the data
         print("Atoms object:", type(atoms))
         print("Number of atoms:", len(atoms))
         print("Positions shape:", atoms.positions.shape)
         # If additional tensors are involved in AIMNet calculations, add their print statements here
+        print("coord data type:", coord.dtype)
+        print("coord shape:", coord.shape)
+        print("number_idx data type:", number_idx.dtype)
+        print("number_idx shape:", number_idx.shape)
 
         try:
             opt = BFGS(atoms, logfile='/dev/null')
