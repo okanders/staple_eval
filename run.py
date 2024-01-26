@@ -47,7 +47,8 @@ aimnet_calculator = AIMNetCalculator(model)
 dftd4_calculator = DFTD4(method='wB97x')
 
 # Combine the DFTD4 and AIMNet calculators
-calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
+# calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
+calculator = dftd4_calculator.add_calculator(aimnet_calculator)
 
 
 
