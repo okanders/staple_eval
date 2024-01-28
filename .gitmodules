@@ -2,3 +2,6 @@
 [submodule "aimnet"]
 	path = aimnet
 	url = https://github.com/okanders/aimnet.git
+[submodule "AIMNet2"]
+	path = AIMNet2
+	url = https://github.com/okanders/AIMNet2.git

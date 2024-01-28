@@ -9,8 +9,6 @@ import h5py
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import sys
-
 
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -137,6 +135,7 @@ def optimize(mol):
         coord = atoms.positions
         number_idx = torch.tensor([atom.number for atom in atoms], dtype=torch.long)
 
+        #ADDED
         # Debugging: Print the types and shapes of the data
         print("Atoms object:", type(atoms))
         print("Number of atoms:", len(atoms))
@@ -147,6 +146,8 @@ def optimize(mol):
         print("number_idx data type:", number_idx.dtype)
         print("number_idx shape:", number_idx.shape)
 
+
+        #ADDED
         try:
             opt = BFGS(atoms, logfile='/dev/null')
             # opt.attach(save, interval=1)
@@ -157,6 +158,13 @@ def optimize(mol):
             # Fix for the NameError
             conformer_id = conformer.GetId()
             tqdm.tqdm.write(f'FAILED MINIMIZE: {conformer_id}')
+
+        # try:
+        #     opt = BFGS(atoms, logfile='/dev/null')
+        #     # opt.attach(save, interval=1)
+        #     opt.run(steps=99, fmax=0.05)
+        # except:
+        #     tqdm.tqdm.write(f'FAILED MINIMIZE: {conformer_id}')
 
 
         for i, position in enumerate(atoms.get_positions()):
@@ -216,6 +224,8 @@ for name, smiles in name_smiles:
 
     AllChem.EmbedMultipleConfs(mol, numConfs=run_size, clearConfs=False, useSmallRingTorsions=True, numThreads=4)
 
+
+    #ADDED
     # Collect all conformers in a list
     conformer_list = list(mol.GetConformers())
 
