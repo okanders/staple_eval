@@ -42,7 +42,7 @@ else:
 aimnet_calculator = AIMNetCalculator(model)
 
 # Create the DFTD4 calculator with the specified method
-dftd4_calculator = DFTD4(method='wB97x')
+dftd4_calculator = DFTD4(xc='wB97x')
 
 # Combine the DFTD4 and AIMNet calculators
 # calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
@@ -194,7 +194,7 @@ for name, smiles in name_smiles:
 
     print('Generating Conformers...')
     mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
-    template_mol = Chem.AddHs(Chem.MolFromPDBFile('ja1c04378_si_002.pdb'))
+    template_mol = Chem.AddHs(Chem.MolFromPDBFile('1h2c_motif_78_93.pdb'))
 
     atomMap = {
         0 : 0,
