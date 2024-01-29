@@ -42,7 +42,7 @@ else:
 aimnet_calculator = AIMNetCalculator(model)
 
 # Create the DFTD4 calculator with the specified method
-calculator = DFTD4(xc='wB97x', method=aimnet_calculator)
+calculator = DFTD4(method='wB97x')
 #calculator= dftd4_calculator.set(method=aimnet_calculator)
 
 # Combine the DFTD4 and AIMNet calculators
