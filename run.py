@@ -194,7 +194,7 @@ for name, smiles in name_smiles:
 
     print('Generating Conformers...')
     mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
-    template_mol = Chem.AddHs(Chem.MolFromPDBFile('1h2c_motif_78_93.pdb'))
+    template_mol = Chem.AddHs(Chem.MolFromPDBFile('ja1c04378_si_002.pdb'))
 
     atomMap = {
         0 : 0,
