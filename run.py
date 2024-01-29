@@ -180,6 +180,23 @@ def optimize(mol):
         neighbor_list.update(atoms)
 
         if np.array_equal(neighbor_list.get_connectivity_matrix(sparse=False), connectivity_matrix):
+
+            # Print out the Atoms object for inspection
+            print("Atoms object:", atoms)
+
+            # Print out the number of atoms
+            print("Number of atoms:", len(atoms))
+
+            # Print out the potential and kinetic energy separately
+            potential_energy = atoms.get_potential_energy()
+            kinetic_energy = atoms.get_kinetic_energy()
+            print("Potential Energy:", potential_energy)
+            print("Kinetic Energy:", kinetic_energy)
+
+            # Get and print the total energy
+            total_energy = atoms.get_total_energy()
+            print("Total Energy:", total_energy)
+
             energy = atoms.get_total_energy()[0] * (1/(units.kcal/units.mol))
         else:
             energy = 0.0
