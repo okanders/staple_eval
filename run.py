@@ -42,11 +42,11 @@ else:
 aimnet_calculator = AIMNetCalculator(model)
 
 # Create the DFTD4 calculator with the specified method
-calculator = DFTD4(method='wB97x')
+dftd4_calculator = DFTD4(method='wB97x')
 #calculator= dftd4_calculator.set(method=aimnet_calculator)
 
 # Combine the DFTD4 and AIMNet calculators
-#calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
+calculator = SumCalculator([dftd4_calculator, aimnet_calculator])
 #calculator = dftd4_calculator.add_calculator(aimnet_calculator)
 
 
@@ -200,8 +200,8 @@ def optimize(mol):
 
 
             #CHANGED
-            #energy = atoms.get_total_energy()[0] * (1/(units.kcal/units.mol))
-            energy = atoms.get_total_energy() * (1/(units.kcal/units.mol))
+            energy = atoms.get_total_energy()[0] * (1/(units.kcal/units.mol))
+            #energy = atoms.get_total_energy() * (1/(units.kcal/units.mol))
 
         else:
             energy = 0.0
@@ -283,6 +283,14 @@ for name, smiles in name_smiles:
     energies = np.array([conformer.GetDoubleProp('energy') for conformer in mol.GetConformers()])
     rmsds = np.array([conformer.GetDoubleProp('rmsd') for conformer in mol.GetConformers()])
     xyzs = np.array([conformer.GetPositions() for conformer in mol.GetConformers()])
+
+
+    #ADDED AT END
+    #hdf5_directory = '_hdf5s'
+    #if not os.path.exists(hdf5_directory):
+    #    os.makedirs(hdf5_directory)
+
+
 
     if os.path.exists(f'_hdf5s/{name}.hdf5'):
         with h5py.File(f'_hdf5s/{name}.hdf5', 'r') as hdf5_file:
