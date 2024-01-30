@@ -181,6 +181,7 @@ def optimize(mol):
 
         if np.array_equal(neighbor_list.get_connectivity_matrix(sparse=False), connectivity_matrix):
 
+            #ADDED
             # Print out the Atoms object for inspection
             print("Atoms object:", atoms)
 
@@ -197,7 +198,11 @@ def optimize(mol):
             total_energy = atoms.get_total_energy()
             print("Total Energy:", total_energy)
 
-            energy = atoms.get_total_energy()[0] * (1/(units.kcal/units.mol))
+
+            #CHANGED
+            #energy = atoms.get_total_energy()[0] * (1/(units.kcal/units.mol))
+            energy = atoms.get_total_energy() * (1/(units.kcal/units.mol))
+
         else:
             energy = 0.0
 
@@ -238,9 +243,24 @@ for name, smiles in name_smiles:
 
     coordMap = {a1 : template_mol.GetConformer().GetAtomPosition(a2) for a1, a2 in atomMap.items()}
 
-    AllChem.EmbedMultipleConfs(mol, numConfs=run_size, coordMap=coordMap, useSmallRingTorsions=True, numThreads=4)
 
-    AllChem.EmbedMultipleConfs(mol, numConfs=run_size, clearConfs=False, useSmallRingTorsions=True, numThreads=4)
+    #CHANGED
+    #AllChem.EmbedMultipleConfs(mol, numConfs=run_size, coordMap=coordMap, useSmallRingTorsions=True, numThreads=4)
+
+    #AllChem.EmbedMultipleConfs(mol, numConfs=run_size, clearConfs=False, useSmallRingTorsions=True, numThreads=4)
+    
+    #ADDED
+    try:
+        # Try to generate multiple conformations
+        AllChem.EmbedMultipleConfs(mol, numConfs=run_size, coordMap=coordMap, useSmallRingTorsions=True, numThreads=4)
+        AllChem.EmbedMultipleConfs(mol, numConfs=run_size, clearConfs=False, useSmallRingTorsions=True, numThreads=4)
+
+        # Continue with the rest of your code...
+
+    except Exception as e:
+        # Handle the exception
+        print(f'Error during conformer generation: {e}')
+        continue  # Skip to the next molecule
 
 
     #ADDED
