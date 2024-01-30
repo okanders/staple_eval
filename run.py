@@ -267,6 +267,8 @@ for name, smiles in name_smiles:
     # Collect all conformers in a list
     conformer_list = list(mol.GetConformers())
 
+    print('conformer list', conformer_list)
+
     # Iterate over the list of conformers
     for conformer in conformer_list:
         new_conformer_id = mol.AddConformer(conformer, assignId=True)
