@@ -189,10 +189,10 @@ def optimize(mol):
             print("Number of atoms:", len(atoms))
 
             # Print out the potential and kinetic energy separately
-            potential_energy = atoms.get_potential_energy()
-            kinetic_energy = atoms.get_kinetic_energy()
-            print("Potential Energy:", potential_energy)
-            print("Kinetic Energy:", kinetic_energy)
+            #potential_energy = atoms.get_potential_energy()
+            #kinetic_energy = atoms.get_kinetic_energy()
+            #print("Potential Energy:", potential_energy)
+            #print("Kinetic Energy:", kinetic_energy)
 
             # Get and print the total energy
             total_energy = atoms.get_total_energy()
