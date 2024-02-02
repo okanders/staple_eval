@@ -288,9 +288,9 @@ for name, smiles in name_smiles:
 
 
     #ADDED AT END
-    #hdf5_directory = '_hdf5s'
-    #if not os.path.exists(hdf5_directory):
-    #    os.makedirs(hdf5_directory)
+    hdf5_directory = '_hdf5s'
+    if not os.path.exists(hdf5_directory):
+       os.makedirs(hdf5_directory)
 
 
 
