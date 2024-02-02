@@ -294,13 +294,13 @@ for name, smiles in name_smiles:
 
 
 
-    if os.path.exists(f'_hdf5s/{name}.hdf5'):
-        with h5py.File(f'_hdf5s/{name}.hdf5', 'r') as hdf5_file:
+    if os.path.exists(f'{hdf5_directory}/{name}.hdf5'):
+        with h5py.File(f'{hdf5_directory}/{name}.hdf5', 'r') as hdf5_file:
             energies = np.concatenate([hdf5_file['energies'], energies])
             rmsds = np.concatenate([hdf5_file['rmsds'], rmsds])
             xyzs = np.concatenate([hdf5_file['xyzs'], xyzs])
 
-    with h5py.File(f'_hdf5s/{name}.hdf5', 'w') as hdf5_file:
+    with h5py.File(f'{hdf5_directory}/{name}.hdf5', 'w') as hdf5_file:
         hdf5_file.create_dataset('energies', data=energies)
         hdf5_file.create_dataset('rmsds', data=rmsds)
         hdf5_file.create_dataset('xyzs', data=xyzs)
@@ -322,11 +322,10 @@ for name, smiles in name_smiles:
         os.makedirs(figures_directory)
 
 
-
     sns.set_context('talk', font_scale=1.0)
     sns.set_style('ticks')
     f, ax = plt.subplots(1, 1, figsize=(10, 10))
-    sns.scatterplot(rmsds, energies - np.min(energies), color='steelblue', ax=ax)
+    sns.scatterplot(x=rmsds, y=energies - np.min(energies), color='steelblue', ax=ax)
     ax.set_title(name, fontweight='bold')
     ax.set_ylabel('Delta Energy (kcal/mol)', fontweight='bold')
     ax.set_ylim(-1.0, 26.0)
