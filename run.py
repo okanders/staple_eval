@@ -305,10 +305,23 @@ for name, smiles in name_smiles:
         hdf5_file.create_dataset('rmsds', data=rmsds)
         hdf5_file.create_dataset('xyzs', data=xyzs)
 
+    # Check if the _pdbs directory exists, and create it if it doesn't
+    pdb_directory = '_pdbs'
+    if not os.path.exists(pdb_directory):
+        os.makedirs(pdb_directory)
+
+
     Atoms(
         numbers=[atom.GetAtomicNum() for atom in mol.GetAtoms()],
         positions=xyzs[np.argmin(energies)],
-    ).write(f'_pdbs/{name}.pdb')
+    ).write(f'{pdb_directory}/{name}.pdb')
+
+    # Check if the _figures directory exists, and create it if it doesn't
+    figures_directory = '_figures'
+    if not os.path.exists(figures_directory):
+        os.makedirs(figures_directory)
+
+
 
     sns.set_context('talk', font_scale=1.0)
     sns.set_style('ticks')
@@ -320,5 +333,5 @@ for name, smiles in name_smiles:
     ax.set_xlabel('RMSD to Template', fontweight='bold')
     ax.set_xlim(-0.1, 6.1)
     plt.tight_layout()
-    f.savefig(f'_figures/{name}.png', dpi=300)
+    f.savefig(f'{figures_directory}/{name}.png', dpi=300)
     plt.close(f)
